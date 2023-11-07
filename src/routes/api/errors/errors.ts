@@ -15,9 +15,7 @@ interface responses {
   message: string;
 }
 
-export default function response(
-  code: 200 | 201 | 204 | 400 | 401 | 404 | 409 | 500
-) {
+function response(code: 200 | 201 | 204 | 400 | 401 | 404 | 409 | 500) {
   if (code === 200) {
     return res200;
   } else if (code === 201) {
@@ -36,3 +34,5 @@ export default function response(
     return err500;
   }
 }
+
+export { response, responses };
