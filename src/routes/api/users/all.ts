@@ -2,7 +2,7 @@
 
 import fs from "fs-extra";
 import { Router } from "express";
-import response from "../errors/errors";
+import { response, responses } from "../errors/errors";
 
 // Presets
 
@@ -13,12 +13,12 @@ export default async function (router: Router) {
     if (req.headers["authorization"] !== "") {
       if (req.headers["authorization"] === process.env.KEY) {
         let all = fs.readJsonSync("data/users.json").users;
-        res.status(200).json(all);
+        return res.status(200).json(all);
       } else {
-        res.status(401).json(response(401));
+        return res.status(401).json(response(401));
       }
     } else {
-      res.status(400).json(response(400));
+      return res.status(400).json(response(400));
     }
   });
 }
