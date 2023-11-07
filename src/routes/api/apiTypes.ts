@@ -1,5 +1,10 @@
+// Types
+
 type Id = string;
 type AllType = "user" | "post" | "comment" | "like" | "userEvent" | "group";
+
+// Interfaces
+
 interface User {
   id: Id;
   username: string;
@@ -82,4 +87,40 @@ interface UserLike {
   user: Id;
   post: Id;
 }
-export { Id, AllType, User, Group, UserEvent, Post, UserComment, UserLike };
+
+// Function
+
+function isUser(object: any): object is User {
+  return "id" in object;
+}
+function isGroup(object: any): object is Group {
+  return "id" in object;
+}
+function isUserEvent(object: any): object is UserEvent {
+  return "id" in object;
+}
+function isPost(object: any): object is Post {
+  return "id" in object;
+}
+function isUserComment(object: any): object is UserComment {
+  return "id" in object;
+}
+function isUserLike(object: any): object is UserLike {
+  return "id" in object;
+}
+export {
+  Id,
+  AllType,
+  User,
+  Group,
+  UserEvent,
+  Post,
+  UserComment,
+  UserLike,
+  isUser,
+  isGroup,
+  isUserEvent,
+  isPost,
+  isUserComment,
+  isUserLike,
+};
