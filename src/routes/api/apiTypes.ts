@@ -1,4 +1,5 @@
 type Id = string;
+type AllType = "user" | "post" | "comment" | "like" | "userEvent" | "group";
 interface User {
   id: Id;
   username: string;
@@ -81,4 +82,4 @@ interface UserLike {
   user: Id;
   post: Id;
 }
-export { Id, User, Group, UserEvent, Post, UserComment, UserLike };
+export { Id, AllType, User, Group, UserEvent, Post, UserComment, UserLike };
