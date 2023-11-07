@@ -81,6 +81,11 @@
   resolved "https://registry.npmjs.org/@types/qs/-/qs-6.9.9.tgz"
   integrity sha512-wYLxw35euwqGvTDx6zfY1vokBFnsK0HNrzc6xNHchxfO2hpuRg74GbkEW7e3sSmPvj0TjCDT1VCa6OtHXnubsg==
 
+"@types/random-string@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.npmjs.org/@types/random-string/-/random-string-0.0.31.tgz"
+  integrity sha512-L/N6zJvxeiNRoGicjS93QYgVFHswsX7bXZIzm9GEZ0to3FMUM02PSBQ/PdijwSCaOaiodUwPXXwd5GnWMvBSfA==
+
 "@types/range-parser@*":
   version "1.2.6"
   resolved "https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.6.tgz"
