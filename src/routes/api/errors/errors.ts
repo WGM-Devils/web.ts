@@ -7,15 +7,16 @@ import err400 from "./400";
 import err401 from "./401";
 import err404 from "./404";
 import err409 from "./409";
+import err500 from "./500";
 
-interface err {
-  code: 200 | 201 | 204 | 400 | 401 | 404 | 409;
+interface responses {
+  code: 200 | 201 | 204 | 400 | 401 | 404 | 409 | 500;
   status: string;
   message: string;
 }
 
-export default async function response(
-  code: 200 | 201 | 204 | 400 | 401 | 404 | 409
+export default function response(
+  code: 200 | 201 | 204 | 400 | 401 | 404 | 409 | 500
 ) {
   if (code === 200) {
     return res200;
@@ -31,5 +32,7 @@ export default async function response(
     return err404;
   } else if (code === 409) {
     return err409;
+  } else if (code === 500) {
+    return err500;
   }
 }
