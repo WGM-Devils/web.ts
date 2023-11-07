@@ -25,3 +25,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Code
+
+app.listen(4040, () => {
+  console.log("Server running on port 4040");
+});
