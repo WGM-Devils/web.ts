@@ -2,7 +2,7 @@
 
 import fs from "fs-extra";
 import { Router } from "express";
-import response from "../errors/errors";
+import { response } from "../errors/errors";
 import randomString from "random-string";
 import { Id, User, isUser } from "../apiTypes";
 
