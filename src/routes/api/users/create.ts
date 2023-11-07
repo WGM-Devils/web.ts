@@ -9,7 +9,7 @@ import { Id, User, isUser } from "../apiTypes";
 // Presets
 
 let all: any = fs.readJsonSync("data/files/all.json");
-let users: object[] = fs.readJsonSync("data/files/users.json").users;
+let users: User[] = fs.readJsonSync("data/files/users.json").users;
 
 // Code
 
