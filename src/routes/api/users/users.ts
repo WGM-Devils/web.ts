@@ -9,10 +9,12 @@ let userRouter = express.Router();
 // API Imports
 
 import allRouter from "./all";
+import createRouter from "./create";
 
 // Code
 
 userRouter.use("/all", allRouter);
+userRouter.use("/create", createRouter);
 
 // Exports
 
