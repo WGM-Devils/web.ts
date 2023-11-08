@@ -5,6 +5,10 @@ import env from "dotenv";
 import cors from "cors";
 import path from "path";
 
+// API
+
+import apiRouter from "./routes/api/api";
+
 // Presets
 
 const app = express();
@@ -29,3 +33,5 @@ app.use(express.static(path.join(__dirname, "public")));
 app.listen(4040, () => {
   console.log("Server running on port 4040");
 });
+
+app.use("/api", apiRouter);
