@@ -22,3 +22,7 @@ allRouter.get("/", (req, res) => {
     return res.status(400).json(response(400));
   }
 });
+
+// Exports
+
+export default allRouter;
