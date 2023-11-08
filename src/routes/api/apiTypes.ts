@@ -73,6 +73,7 @@ interface Post {
     link: string;
   };
   comments: {
+    allowed: boolean;
     count: number;
     collection: Id[];
   };
