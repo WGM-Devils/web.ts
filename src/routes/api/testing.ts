@@ -9,7 +9,7 @@ let testRouter = express.Router();
 
 // Code
 
-testRouter.get("?code=:code", (req, res) => {
+testRouter.get("/?code=:code", (req, res) => {
   if (req.params.code === "200") {
     return res.status(200).json(response(200));
   } else if (req.params.code === "201") {
