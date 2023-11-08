@@ -3,6 +3,7 @@
 import Express from "express";
 import comments from "./posts/comments/comments";
 import testing from "./testing";
+import users from "./users/users";
 
 // Presets
 
@@ -12,6 +13,7 @@ let apiRouter = Express.Router();
 
 apiRouter.use("/comments", comments);
 apiRouter.use("/testing", testing);
+apiRouter.use("/users", users);
 
 // Exports
 
