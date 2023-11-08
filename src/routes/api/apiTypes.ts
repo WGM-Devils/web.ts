@@ -42,6 +42,10 @@ interface Group {
   name: string;
   slogan: string;
   members: Id[];
+  city: {
+    latitude: string;
+    longitude: string;
+  };
 }
 interface UserEvent {
   id: Id[];
@@ -54,6 +58,10 @@ interface UserEvent {
   host: Id;
   website: string;
   date: string;
+  city: {
+    latitude: string;
+    longitude: string;
+  };
 }
 interface Post {
   id: Id;
