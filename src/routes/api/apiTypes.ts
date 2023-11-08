@@ -35,6 +35,7 @@ interface User {
   };
   events: Id[];
   groups: Group[];
+  createdAt: Date;
 }
 interface Group {
   id: Id;
@@ -46,6 +47,7 @@ interface Group {
     latitude: string;
     longitude: string;
   };
+  createdAt: Date;
 }
 interface UserEvent {
   id: Id[];
@@ -62,6 +64,7 @@ interface UserEvent {
     latitude: string;
     longitude: string;
   };
+  createdAt: Date;
 }
 interface Post {
   id: Id;
@@ -85,16 +88,21 @@ interface Post {
     count: number;
     collection: Id[];
   };
+  createdAt: Date;
+  lastUpdated: Date;
 }
 interface UserComment {
   id: Id;
   creator: Id;
   post: Id;
+  message: string;
+  createdAt: Date;
 }
 interface UserLike {
   id: Id;
   user: Id;
   post: Id;
+  createdAt: Date;
 }
 
 // Function
