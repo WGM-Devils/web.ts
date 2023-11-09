@@ -28,6 +28,8 @@ kickRouter.get("/?userId=:user/?groupId=:group", (req, res) => {
           users.splice(
             users.indexOf(<User>users.find((us) => us.id === user?.id))
           );
+          users.push(<User>user);
+          groups.push(<Group>group);
           fs.writeJsonSync(
             "src/data/files/groups.json",
             { groups: groups },
