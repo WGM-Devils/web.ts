@@ -52,3 +52,7 @@ kickRouter.get("/?userId=:user/?groupId=:group", (req, res) => {
     return res.status(400).json(response(400));
   }
 });
+
+// Exports
+
+export default kickRouter;
