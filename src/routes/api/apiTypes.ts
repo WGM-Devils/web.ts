@@ -34,7 +34,7 @@ interface User {
     collection: Id[];
   };
   events: Id[];
-  groups: Group[];
+  groups: Id[];
   createdAt: Date;
 }
 interface Group {
