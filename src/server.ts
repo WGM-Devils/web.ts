@@ -12,6 +12,7 @@ import apiRouter from "./routes/api/api";
 // Presets
 
 const app = express();
+let url = "http://localhost:4040";
 
 // Configs
 
@@ -35,3 +36,7 @@ app.listen(4040, () => {
 });
 
 app.use("/api", apiRouter);
+
+// Exports
+
+export default url;
