@@ -1,19 +1,21 @@
 // Imports
 
 import Express from "express";
-import comments from "./posts/comments/comments";
-import testing from "./testing";
-import users from "./users/users";
 
+// API Imports
+
+import testing from "./testing";
+import usersRouter from "./users/users";
+import groupsRouter from "./groups/groups";
 // Presets
 
 let apiRouter = Express.Router();
 
 // Code
 
-apiRouter.use("/comments", comments);
+apiRouter.use("/groups", groupsRouter);
 apiRouter.use("/testing", testing);
-apiRouter.use("/users", users);
+apiRouter.use("/users", usersRouter);
 
 // Exports
 
