@@ -4,7 +4,7 @@ import express from "express";
 
 // Presets
 
-let userRouter = express.Router();
+let usersRouter = express.Router();
 
 // API Imports
 
@@ -13,9 +13,9 @@ import createRouter from "./create";
 
 // Code
 
-userRouter.use("/all", allRouter);
-userRouter.use("/create", createRouter);
+usersRouter.use("/all", allRouter);
+usersRouter.use("/create", createRouter);
 
 // Exports
 
-export default userRouter;
+export default usersRouter;
