@@ -13,7 +13,7 @@ let allRouter = express.Router();
 allRouter.get("/", (req, res) => {
   if (req.headers["authorization"] !== "") {
     if (req.headers["authorization"] === process.env.KEY) {
-      let all = fs.readJsonSync("src/data/files/all.json").users; //ToBeChanged
+      let all = fs.readJsonSync("src/data/files/all.json").users;
       return res.status(200).json({ users: all });
     } else {
       return res.status(401).json(response(401));

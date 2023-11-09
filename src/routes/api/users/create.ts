@@ -8,8 +8,8 @@ import { Id, User, isUser } from "../apiTypes";
 
 // Presets
 
-let all = fs.readJsonSync("src/data/files/all.json"); //ToBeChanged
-let users: User[] = fs.readJsonSync("src/data/files/users.json").users; //ToBeChanged
+let all = fs.readJsonSync("src/data/files/all.json");
+let users: User[] = fs.readJsonSync("src/data/files/users.json").users;
 let createRouter = express.Router();
 
 // Code
