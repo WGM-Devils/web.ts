@@ -64,3 +64,5 @@ deleteRouter.delete("/?id=:id", (req, res) => {
 });
 
 // Exports
+
+export default deleteRouter;
