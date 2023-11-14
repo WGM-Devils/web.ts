@@ -17,7 +17,7 @@ let createRouter = express.Router();
 createRouter.get("/", (req, res) => {
   if (req.headers["authorization"] !== "") {
     if (req.headers["authorization"] === process.env.KEY) {
-      let newUser = JSON.parse(req.body);
+      let newUser = req.body;
       let id: Id = randomString({
         length: 30,
         numeric: true,
