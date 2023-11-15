@@ -7,6 +7,8 @@ import Express from "express";
 import testing from "./testing";
 import usersRouter from "./users/users";
 import groupsRouter from "./groups/groups";
+import userEventsRouter from "./userEvents/userEvents";
+
 // Presets
 
 let apiRouter = Express.Router();
@@ -16,6 +18,7 @@ let apiRouter = Express.Router();
 apiRouter.use("/groups", groupsRouter);
 apiRouter.use("/testing", testing);
 apiRouter.use("/users", usersRouter);
+apiRouter.use("/events", userEventsRouter);
 
 // Exports
 
