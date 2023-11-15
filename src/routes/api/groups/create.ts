@@ -48,6 +48,9 @@ createRouter.post("/", (req, res) => {
           users.indexOf(<User>users.find((u) => u.id === newGroup.creaor))
         );
         users.push(<User>user);
+        fs.writeJsonSync("src/data/files/users.json", users, { spaces: 4 });
+        fs.writeJsonSync("src/data/files/all.json", all, { spaces: 4 });
+        return res.status(200).json({ groups: [newGroup] });
       }
     } else {
       return res.status(401).json(response(401));
