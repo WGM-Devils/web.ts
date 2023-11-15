@@ -14,7 +14,7 @@ let createRouter = express.Router();
 
 // Code
 
-createRouter.get("/create", (req, res) => {
+createRouter.post("/create", (req, res) => {
   if (req.headers["authorization"] !== "") {
     if (req.headers["authorization"] === process.env.KEY) {
       let newUser = req.body;
