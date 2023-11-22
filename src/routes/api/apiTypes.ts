@@ -8,6 +8,7 @@ type AllType = "user" | "post" | "comment" | "like" | "userEvent" | "group";
 interface User {
   id: Id;
   username: string;
+  password: string;
   description: string;
   pfp: {
     extension: "png" | "jpg";
