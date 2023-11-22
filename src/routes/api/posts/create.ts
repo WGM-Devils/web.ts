@@ -9,7 +9,7 @@ import { Id, Post, isPost } from "../apiTypes";
 // Presets
 
 let all = fs.readJsonSync("src/data/files/all.json");
-let posts: Post[] = fs.readJsonSync("src/data/files/posts.json").users;
+let posts: Post[] = fs.readJsonSync("src/data/files/posts.json").posts;
 let createRouter = express.Router();
 
 // Code
