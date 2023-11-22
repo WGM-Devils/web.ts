@@ -45,6 +45,7 @@ createRouter.post("/", (req, res) => {
           fs.writeJsonSync("src/data/files/all.json", all, { spaces: 4 });
           res.status(200).json(newUser);
         } catch (error) {
+          console.log(error);
           res.status(500).json(response(500));
         }
       } else {
