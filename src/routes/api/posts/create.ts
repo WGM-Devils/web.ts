@@ -35,7 +35,7 @@ createRouter.post("/", (req, res) => {
       newPost.id = id;
       if (isPost(newPost)) {
         try {
-          all[id] = "user";
+          all[id] = "post";
           posts.push(newPost);
           fs.writeJsonSync(
             "src/data/files/users.json",
