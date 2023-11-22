@@ -38,7 +38,7 @@ createRouter.post("/", (req, res) => {
           all[id] = "post";
           posts.push(newPost);
           fs.writeJsonSync(
-            "src/data/files/users.json",
+            "src/data/files/posts.json",
             { posts: posts },
             { spaces: 4 }
           );
