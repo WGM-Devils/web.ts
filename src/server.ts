@@ -1,42 +1,43 @@
 // Imports
 
 import express from "express";
+import http from "http";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import compression from "compression";
+import mongoose from "mongoose";
 import env from "dotenv";
 import cors from "cors";
-import path from "path";
 
-// API
+// Project-Imports
 
-import apiRouter from "./routes/api/api";
+import router from "router";
 
 // Presets
 
 const app = express();
-let url = "http://localhost:4040";
+const server = http.createServer(app);
 
 // Configs
 
 env.config();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(
-  cors({
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    origin: "*",
-  })
+
+app.use(compression());
+app.use(cors({ credentials: true }));
+app.use(cookieParser());
+app.use(bodyParser.json());
+
+mongoose.Promise = Promise;
+mongoose.connect(process.env["MONGO_URL"]);
+mongoose.connection.on("connection", (stream) =>
+  console.log("Database working properly!")
 );
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
+mongoose.connection.on("error", (err: Error) => console.log(err));
 
 // Code
 
-app.listen(4040, () => {
-  console.log("Server running on port 4040");
+server.listen(1000, () => {
+  console.log(
+    "Server running on local port 1000 with url 'http://localhost:1000/'"
+  );
 });
-
-app.use("/api", apiRouter);
-
-// Exports
-
-export default url;
