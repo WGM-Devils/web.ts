@@ -1,4 +1,7 @@
 import crypto from "crypto";
+import env from "dotenv";
+
+env.config();
 
 const SECRET = process.env["SECRET"];
 
