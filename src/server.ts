@@ -11,7 +11,7 @@ import cors from "cors";
 
 // Project-Imports
 
-import router from "router";
+import router from "./router/index";
 
 // Presets
 
@@ -29,15 +29,17 @@ app.use(bodyParser.json());
 
 mongoose.Promise = Promise;
 mongoose.connect(process.env["MONGO_URL"]);
-mongoose.connection.on("connection", (stream) =>
+mongoose.connection.on("connected", (stream) =>
   console.log("Database working properly!")
 );
 mongoose.connection.on("error", (err: Error) => console.log(err));
 
 // Code
 
-server.listen(1000, () => {
+server.listen(2000, () => {
   console.log(
-    "Server running on local port 1000 with url 'http://localhost:1000/'"
+    "Server running on local port 2000 with url 'http://localhost:2000/'"
   );
 });
+
+app.use("/", router());
