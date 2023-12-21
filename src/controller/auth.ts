@@ -64,6 +64,23 @@ export const register = async (req: express.Request, res: express.Response) => {
         salt,
         password: authentication(salt, password),
       },
+      views: {
+        count: 0,
+        collection: [],
+      },
+      posts: {
+        count: 0,
+        collection: [],
+      },
+      comments: {
+        count: 0,
+        collection: [],
+      },
+      likes: {
+        count: 0,
+        collection: [],
+      },
+      createdAt: new Date(),
     });
 
     return res.status(200).json(user).end();
