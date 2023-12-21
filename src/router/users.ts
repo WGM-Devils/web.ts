@@ -6,7 +6,7 @@ import {
   getUser,
   updateUser,
 } from "../controller/users";
-import { isAuthenticated, isOwner } from "../middlewares";
+import { isAuthenticated, isOwner } from "../middlewares/users";
 
 export default (router: express.Router) => {
   router.get("/users/all/type=:type", getAllUsers);
