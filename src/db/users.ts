@@ -38,7 +38,7 @@ const UserSchema = new mongoose.Schema({
   createdAt: { type: Date, required: true },
 });
 
-export const UserModel = mongoose.model("User", UserSchema, "");
+export const UserModel = mongoose.model("User", UserSchema, "users");
 
 export const getUsers = () => UserModel.find();
 
