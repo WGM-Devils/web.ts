@@ -17,24 +17,24 @@ const UserSchema = new mongoose.Schema({
     link: { type: String, required: false },
   },
   likes: {
-    count: { type: Number, required: true },
-    collection: { type: Array, required: true },
+    count: { type: Number, default: 0 },
+    collection: { type: Array, default: [] },
   },
   comments: {
-    count: { type: Number, required: true },
-    collection: { type: Array, required: true },
+    count: { type: Number, default: 0 },
+    collection: { type: Array, default: [] },
   },
   posts: {
-    count: { type: Number, required: true },
-    collection: { type: Array, required: true },
+    count: { type: Number, default: 0 },
+    collection: { type: Array, default: [] },
   },
   views: {
-    count: { type: Number, required: true },
-    collection: { type: Array, required: true },
+    count: { type: Number, default: 0 },
+    collection: { type: Array, default: 0 },
   },
-  events: { type: Array, required: true },
-  groups: { type: Array, required: true },
-  createdAt: { type: Date, required: true },
+  events: { type: Array, default: [] },
+  groups: { type: Array, default: [] },
+  createdAt: { type: Date, default: Date.now() },
 });
 
 export const UserModel = mongoose.model("User", UserSchema, "users");
