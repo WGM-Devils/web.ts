@@ -12,7 +12,7 @@ import {
   getById,
   getByCreator,
 } from "../db/groups";
-import { sendAPIResponse } from "helpers/respond";
+import { sendAPIResponse } from "../helpers/respond";
 import { getUserById, updateUserById } from "db/users";
 
 // Exports
