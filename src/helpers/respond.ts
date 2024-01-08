@@ -16,7 +16,10 @@ type ResponseByAPI = {
   description: string;
   date: Date;
   ok: Boolean;
-  contents: Object | null | Object[];
+  response: {
+    contents: Object | null | Object[];
+    content_type: "json" | "arr";
+  };
 };
 
 // Code
@@ -26,7 +29,8 @@ type ResponseByAPI = {
 function sendAPIResponse(
   code: 200 | 201 | 204 | 400 | 401 | 403 | 404 | 406 | 500 | 501,
   description: string,
-  contents: Object | null | Object[]
+  contents: Object | null | Object[],
+  responseType: "json" | "arr" | null
 ): ResponseByAPI {
   let response: ResponseByAPI = {
     code: code,
@@ -34,7 +38,10 @@ function sendAPIResponse(
     description: description,
     date: new Date(),
     ok: false,
-    contents: contents,
+    response: {
+      content_type: responseType,
+      contents: contents,
+    },
   };
   switch (code) {
     case 200:
