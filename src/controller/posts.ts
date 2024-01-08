@@ -1,7 +1,7 @@
 import express from "express";
 
 import { deleteById, updateById, getById, getAll, create } from "../db/posts";
-import { sendAPIResponse } from "helpers/respond";
+import { sendAPIResponse } from "../helpers/respond";
 
 export const getAllPosts = async (
   req: express.Request,

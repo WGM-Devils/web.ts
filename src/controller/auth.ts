@@ -6,7 +6,7 @@ import express from "express";
 
 import { createUser, getUserByEmail } from "../db/users";
 import { authentication, random } from "../helpers/auth";
-import { sendAPIResponse } from "helpers/respond";
+import { sendAPIResponse } from "../helpers/respond";
 
 // Code + Exports
 
