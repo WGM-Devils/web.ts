@@ -16,7 +16,7 @@ type ResponseByAPI = {
   description: string;
   date: Date;
   ok: Boolean;
-  contents: Object | undefined | Object[];
+  contents: Object | null | Object[];
 };
 
 // Code
@@ -26,7 +26,7 @@ type ResponseByAPI = {
 function sendAPIResponse(
   code: 200 | 201 | 204 | 400 | 401 | 403 | 404 | 406 | 500 | 501,
   description: string,
-  contents: Object | undefined | Object[]
+  contents: Object | null | Object[]
 ): ResponseByAPI {
   let response: ResponseByAPI = {
     code: code,
