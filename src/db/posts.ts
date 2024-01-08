@@ -33,12 +33,12 @@ const PostModel = mongoose.model("Post", PostSchema, "posts");
 
 // Exports
 
-export const getPosts = () => PostModel.find();
+export const getAll = () => PostModel.find();
 
-export const getPostById = (id: string) => PostModel.findById(id);
-export const createPost = (values: Record<string, any>) =>
+export const getById = (id: string) => PostModel.findById(id);
+export const create = (values: Record<string, any>) =>
   new PostModel(values).save().then((post) => post.toObject());
-export const deletePostById = (id: string) =>
+export const deleteById = (id: string) =>
   PostModel.findOneAndDelete({ _id: id });
-export const updatePostById = (id: string, values: Record<string, any>) =>
+export const updateById = (id: string, values: Record<string, any>) =>
   PostModel.findByIdAndUpdate(id, values);
