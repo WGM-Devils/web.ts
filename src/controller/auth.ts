@@ -1,13 +1,24 @@
+// Imports
+
 import express from "express";
+
+// Project-Imports
+
 import { createUser, getUserByEmail } from "../db/users";
-import { authentication, random } from "../helpers";
+import { authentication, random } from "../helpers/auth";
+import { sendAPIResponse } from "helpers/respond";
+
+// Code + Exports
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.sendStatus(400);
+      return res
+        .status(400)
+        .json(sendAPIResponse(400, "Check your request once more.", null, null))
+        .end();
     }
 
     const user = await getUserByEmail(email).select(
@@ -26,19 +37,15 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     const salt = random();
 
-    user.auth.sessionToken = authentication(salt, user._id.toString());
+    user.auth.salt = salt;
 
     await user.save();
 
-    res.cookie("KG-AUTH", user.auth.sessionToken, {
-      domain: "localhost",
-      path: "/",
-    });
-
-    return res.status(200).json(user).end;
+    return res.status(200).json(sendAPIResponse(200, "Logged in.", null, null))
+      .end;
   } catch (error) {
     console.log(error);
-    res.sendStatus(400);
+    res.status(500).json(sendAPIResponse(500, "Our bad.", null, null)).end();
   }
 };
 
@@ -64,28 +71,23 @@ export const register = async (req: express.Request, res: express.Response) => {
         salt,
         password: authentication(salt, password),
       },
-      views: {
-        count: 0,
-        collection: [],
-      },
-      posts: {
-        count: 0,
-        collection: [],
-      },
-      comments: {
-        count: 0,
-        collection: [],
-      },
-      likes: {
-        count: 0,
-        collection: [],
-      },
-      createdAt: new Date(),
     });
 
-    return res.status(200).json(user).end();
+    return res
+      .status(201)
+      .json(
+        sendAPIResponse(
+          201,
+          "User was created.",
+          {
+            users: Object.values(user),
+          },
+          "arr"
+        )
+      )
+      .end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.status(500).json(sendAPIResponse(500, "Our fault.", null, null));
   }
 };
