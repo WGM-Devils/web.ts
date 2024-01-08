@@ -4,7 +4,14 @@ import express from "express";
 
 // Project-Imports
 
-import { create, getAll, deleteById, updateById, getById } from "../db/groups";
+import {
+  create,
+  getAll,
+  deleteById,
+  updateById,
+  getById,
+  getByCreator,
+} from "../db/groups";
 import { sendAPIResponse } from "helpers/respond";
 import { getUserById, updateUserById } from "db/users";
 
@@ -126,6 +133,43 @@ export const getGroup = async (req: express.Request, res: express.Response) => {
         )
         .end();
     }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
+export const getGroupByCreator = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { creator, type } = req.params;
+
+    let user = await getUserById(creator);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "No user found.", null, null))
+        .end();
+    }
+
+    let groups = getByCreator(creator);
+
+    if (!groups) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "No groups found.", null, null))
+        .end();
+    }
+
+    return res
+      .status(200)
+      .json(sendAPIResponse(200, "Your requested groups.", groups, "arr"))
+      .end();
   } catch (error) {
     console.log(error);
     return res
