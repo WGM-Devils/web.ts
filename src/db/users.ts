@@ -1,4 +1,8 @@
+// Imports
+
 import mongoose from "mongoose";
+
+// Code
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
@@ -36,6 +40,8 @@ const UserSchema = new mongoose.Schema({
   groups: { type: Array, default: [] },
   createdAt: { type: Date, default: Date.now() },
 });
+
+// Exports
 
 export const UserModel = mongoose.model("User", UserSchema, "users");
 

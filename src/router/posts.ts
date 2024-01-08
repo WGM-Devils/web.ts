@@ -1,4 +1,8 @@
+// Imports
+
 import express from "express";
+
+// Project-Imports
 
 import {
   deletePost,
@@ -6,6 +10,8 @@ import {
   getPost,
   updatePost,
 } from "../controller/posts";
+
+// Exports
 
 export default (router: express.Router) => {
   router.get("/posts/all/type=:type", getAllPosts);

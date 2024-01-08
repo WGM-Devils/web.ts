@@ -11,7 +11,7 @@ import users from "./users";
 
 const router = express.Router();
 
-// Routes
+// Exports
 
 export default (): express.Router => {
   users(router);

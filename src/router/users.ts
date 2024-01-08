@@ -1,4 +1,8 @@
+// Imports
+
 import express from "express";
+
+// Project-Imports
 
 import {
   deleteUser,
@@ -6,6 +10,8 @@ import {
   getUser,
   updateUser,
 } from "../controller/users";
+
+// Exports
 
 export default (router: express.Router) => {
   router.get("/users/all/type=:type", getAllUsers);
