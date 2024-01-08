@@ -95,6 +95,45 @@ export const getAllGroups = async (
       .end();
   }
 };
+export const getGroup = async (req: express.Request, res: express.Response) => {
+  try {
+    const { id, type } = req.params;
+
+    let group = await getById(id);
+
+    if (!group) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "No group found.", null, null))
+        .end();
+    }
+
+    if (type === "json") {
+      return res
+        .status(200)
+        .json(sendAPIResponse(200, "Your requested group.", group, "json"))
+        .end();
+    } else {
+      return res
+        .status(200)
+        .json(
+          sendAPIResponse(
+            200,
+            "Your requested group.",
+            { groups: Object.values(group) },
+            "arr"
+          )
+        )
+        .end();
+    }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
 export const joinGroup = async (
   req: express.Request,
   res: express.Response
