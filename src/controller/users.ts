@@ -8,27 +8,14 @@ export const getAllUsers = async (
   res: express.Response
 ) => {
   try {
-    const { type } = req.params;
     const users = await getUsers();
 
-    if (type === "json") {
-      return res
-        .status(200)
-        .json(sendAPIResponse(200, "Here are all the users.", users, "json"))
-        .end();
-    } else {
-      return res
-        .status(200)
-        .json(
-          sendAPIResponse(
-            200,
-            "Here are all the users.",
-            { users: Object.values(users) },
-            "arr"
-          )
-        )
-        .end();
-    }
+    return res
+      .status(200)
+      .json(
+        sendAPIResponse(200, "Here are all the users.", { users: users }, "arr")
+      )
+      .end();
   } catch (error) {
     console.log(error);
     return res
