@@ -28,3 +28,5 @@ export const deleteById = async (id: string) =>
   GroupModel.findByIdAndDelete(id);
 export const updateById = async (id: string, values: Record<string, any>) =>
   GroupModel.findByIdAndUpdate(id, values);
+export const create = async (values: Record<string, any>) =>
+  GroupModel.create(values);
