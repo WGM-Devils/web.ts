@@ -8,36 +8,21 @@ export const getAllPosts = async (
   res: express.Response
 ) => {
   try {
-    const { type } = req.params;
     const posts = await getAll();
 
-    if (type === "json") {
-      return res
-        .status(200)
-        .json(
-          sendAPIResponse(
-            200,
-            "Enjoy the contents you requested",
-            posts,
-            "json"
-          )
+    return res
+      .status(200)
+      .json(
+        sendAPIResponse(
+          200,
+          "Enjoy the contents you requested",
+          {
+            posts: posts,
+          },
+          "json"
         )
-        .end();
-    } else {
-      return res
-        .status(200)
-        .json(
-          sendAPIResponse(
-            200,
-            "Enjoy the contents you requested",
-            {
-              posts: Object.values(posts),
-            },
-            "arr"
-          )
-        )
-        .end();
-    }
+      )
+      .end();
   } catch (error) {
     console.log(error);
     return res
