@@ -32,49 +32,34 @@ function sendAPIResponse(
   contents: Object | null | Object[],
   responseType: "json" | "arr" | null
 ): ResponseByAPI {
+  const statusMessages: {
+    [key in 200 | 201 | 204 | 400 | 401 | 403 | 404 | 406 | 500 | 501]: {
+      message: string;
+      ok: boolean;
+    };
+  } = {
+    200: { message: "OK", ok: true },
+    201: { message: "Created", ok: true },
+    204: { message: "No Content", ok: true },
+    400: { message: "Bad Request", ok: false },
+    401: { message: "Unauthorized", ok: false },
+    403: { message: "Forbidden", ok: false },
+    404: { message: "Not Found", ok: false },
+    406: { message: "Not Acceptable", ok: false },
+    500: { message: "Internal Server Error", ok: false },
+    501: { message: "Not Implemented", ok: false },
+  };
   let response: ResponseByAPI = {
     code: code,
-    message: "OK",
+    message: statusMessages[code].message as ResponseByAPI["message"],
     description: description,
     date: new Date(),
-    ok: false,
+    ok: statusMessages[code].ok,
     response: {
       content_type: responseType,
       contents: contents,
     },
   };
-  switch (code) {
-    case 200:
-      response.message = "OK";
-      response.ok = true;
-    case 201:
-      response.message = "Created";
-      response.ok = true;
-    case 204:
-      response.message = "No Content";
-      response.ok = true;
-    case 400:
-      response.message = "Bad Request";
-      response.ok = false;
-    case 401:
-      response.message = "Unauthorized";
-      response.ok = false;
-    case 403:
-      response.message = "Forbidden";
-      response.ok = false;
-    case 404:
-      response.message = "Not Found";
-      response.ok = false;
-    case 406:
-      response.message = "Not Acceptable";
-      response.ok = false;
-    case 500:
-      response.message = "Internal Server Error";
-      response.ok = false;
-    case 501:
-      response.message = "Not Implemented";
-      response.ok = false;
-  }
   return response;
 }
 
