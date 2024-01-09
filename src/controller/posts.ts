@@ -135,9 +135,26 @@ export const deletePost = async (
         .end();
     }
 
-    const { id } = req.params;
+    const { postId, userId } = req.params;
 
-    const deletedPost = await deleteById(id);
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "User not found.", null, null))
+        .end();
+    }
+    const deletedPost = await deleteById(postId);
+    if (!deletedPost) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "Post not found.", null, null))
+        .end();
+    }
+
+    user.posts.count--;
+    user.posts.collection = user.posts.collection.filter((id) => id !== postId);
+    await updateUserById(userId, user);
 
     return res
       .status(201)
