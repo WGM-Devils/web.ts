@@ -11,7 +11,7 @@ import {
   deleteUserEvent,
   updateUserEvent,
   createUserEvent,
-} from "controller/userEvent";
+} from "../controller/userEvent";
 
 // Code + Exports
 
