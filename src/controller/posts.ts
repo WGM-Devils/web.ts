@@ -5,6 +5,7 @@ import express from "express";
 // Project-Imports
 
 import { deleteById, updateById, getById, getAll, create } from "../db/posts";
+import { getUserById, updateUserById } from "db/users";
 import { sendAPIResponse } from "../helpers/respond";
 import validateAccess from "../helpers/validateAccess";
 
@@ -45,7 +46,6 @@ export const getAllPosts = async (
       .end();
   }
 };
-
 export const createPost = async (
   req: express.Request,
   res: express.Response
@@ -58,9 +58,9 @@ export const createPost = async (
         .end();
     }
 
-    const { title, content, embed, user } = req.body;
+    const { title, content, embed, userId } = req.body;
 
-    if (!user) {
+    if (!userId) {
       return res
         .status(400)
         .json(sendAPIResponse(400, "You need a user!", null, null))
@@ -80,14 +80,20 @@ export const createPost = async (
         )
         .end();
     }
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "User not found.", null, null))
+        .end();
+    }
 
     const post = await create({
-      user: user,
+      user: userId,
       title: title,
       content: content,
       embed: embed,
     });
-
     if (!post) {
       return res
         .status(400)
@@ -97,6 +103,8 @@ export const createPost = async (
         .end();
     }
 
+    user.posts.count++;
+    user.posts.collection.push(post._id);
     return res
       .status(201)
       .json(
@@ -115,7 +123,6 @@ export const createPost = async (
       .json(sendAPIResponse(500, "We ran into an issue.", null, null));
   }
 };
-
 export const deletePost = async (
   req: express.Request,
   res: express.Response
@@ -143,7 +150,6 @@ export const deletePost = async (
       .json(sendAPIResponse(500, "We ran into an issue.", null, null));
   }
 };
-
 export const getPost = async (req: express.Request, res: express.Response) => {
   try {
     if (!validateAccess(req)) {
@@ -193,7 +199,6 @@ export const getPost = async (req: express.Request, res: express.Response) => {
     return res.status(500).json(sendAPIResponse(500, "Our bad.", null, null));
   }
 };
-
 export const updatePost = async (
   req: express.Request,
   res: express.Response
