@@ -2,12 +2,20 @@ import express from "express";
 
 import { deleteUserById, getUserById, getUsers } from "../db/users";
 import { sendAPIResponse } from "../helpers/respond";
+import validateAccess from "helpers/validateAccess";
 
 export const getAllUsers = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const users = await getUsers();
 
     return res
@@ -30,6 +38,13 @@ export const deleteUser = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id } = req.params;
 
     const deletedUser = await deleteUserById(id);
@@ -57,6 +72,13 @@ export const deleteUser = async (
 
 export const getUser = async (req: express.Request, res: express.Response) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, type } = req.params;
 
     const user = await getUserById(id);
@@ -100,6 +122,13 @@ export const updateUser = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, type } = req.params;
     const { username, description, pfp, email, banner } = req.body;
 

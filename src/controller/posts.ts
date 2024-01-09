@@ -2,12 +2,20 @@ import express from "express";
 
 import { deleteById, updateById, getById, getAll, create } from "../db/posts";
 import { sendAPIResponse } from "../helpers/respond";
+import validateAccess from "../helpers/validateAccess";
 
 export const getAllPosts = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const posts = await getAll();
 
     return res
@@ -37,6 +45,13 @@ export const createPost = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { title, content, embed, user } = req.body;
 
     if (!user) {
@@ -100,7 +115,14 @@ export const deletePost = async (
   res: express.Response
 ) => {
   try {
-    const { id, type } = req.params;
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
+    const { id } = req.params;
 
     const deletedPost = await deleteById(id);
 
@@ -118,6 +140,13 @@ export const deletePost = async (
 
 export const getPost = async (req: express.Request, res: express.Response) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, type } = req.params;
 
     const post = await getById(id);
@@ -164,6 +193,13 @@ export const updatePost = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, type } = req.params;
     const { title, content, embed } = req.body;
 
@@ -192,7 +228,7 @@ export const updatePost = async (
     post.title = title;
     post.content = content;
     post.embed = embed;
-    await post.save();
+    await updateById(id, post);
 
     if (type === "json") {
       return res

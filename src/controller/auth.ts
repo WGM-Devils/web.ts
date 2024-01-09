@@ -7,11 +7,19 @@ import express from "express";
 import { createUser, getUserByEmail } from "../db/users";
 import { authentication, random } from "../helpers/auth";
 import { sendAPIResponse } from "../helpers/respond";
+import validateAccess from "helpers/validateAccess";
 
 // Code + Exports
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -51,6 +59,13 @@ export const login = async (req: express.Request, res: express.Response) => {
 
 export const register = async (req: express.Request, res: express.Response) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { email, password, username } = req.body;
 
     if (!email || !password || !username) {

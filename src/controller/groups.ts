@@ -14,6 +14,7 @@ import {
 } from "../db/groups";
 import { sendAPIResponse } from "../helpers/respond";
 import { getUserById, updateUserById } from "../db/users";
+import validateAccess from "helpers/validateAccess";
 
 // Exports
 
@@ -22,6 +23,13 @@ export const createGroup = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { name, creator, description, members, slogan, city } = req.body;
     const { type } = req.params;
 
@@ -74,6 +82,13 @@ export const getAllGroups = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const groups = await getAll();
     if (!groups) {
       return res
@@ -104,6 +119,13 @@ export const getAllGroups = async (
 };
 export const getGroup = async (req: express.Request, res: express.Response) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, type } = req.params;
 
     let group = await getById(id);
@@ -146,7 +168,14 @@ export const getGroupByCreator = async (
   res: express.Response
 ) => {
   try {
-    const { creator, type } = req.params;
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
+    const { creator } = req.params;
 
     let user = await getUserById(creator);
 
@@ -183,6 +212,13 @@ export const joinGroup = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, userId } = req.body;
 
     let group = await getById(id);
@@ -225,6 +261,13 @@ export const leaveGroup = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, userId } = req.body;
 
     let group = await getById(id);
@@ -267,6 +310,13 @@ export const deleteGroup = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id } = req.params;
 
     const deletedGroup = await deleteById(id);
@@ -295,6 +345,13 @@ export const updateGroup = async (
   res: express.Response
 ) => {
   try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
     const { id, type } = req.params;
 
     let group = await getById(id);
