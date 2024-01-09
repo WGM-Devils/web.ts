@@ -189,7 +189,7 @@ export const likeComment = async (
     await updateCById(commentId, comment);
 
     user.likes.count++;
-    user.likes.collection.push(commentId);
+    user.likes.collection.push({ id: commentId, type: "comment" });
     await updateUserById(userId, user);
 
     return res
