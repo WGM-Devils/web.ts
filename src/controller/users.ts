@@ -1,8 +1,14 @@
+// Imports
+
 import express from "express";
+
+// Project-Imports
 
 import { deleteUserById, getUserById, getUsers } from "../db/users";
 import { sendAPIResponse } from "../helpers/respond";
 import validateAccess from "helpers/validateAccess";
+
+// Exports
 
 export const getAllUsers = async (
   req: express.Request,
