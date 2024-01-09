@@ -274,7 +274,35 @@ export const getAllComments = async (
       .end();
   }
 };
+export const getAllCommentsByCreator = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { userId } = req.params;
 
+    const comments = await getAllByCreator(userId);
+    if (!comments) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "Comments not found.", null, null))
+        .end();
+    }
+
+    return res
+      .status(200)
+      .json(
+        sendAPIResponse(200, "Comments fetched.", { comments: comments }, "arr")
+      )
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
 export const likeComment = async (
   req: express.Request,
   res: express.Response
