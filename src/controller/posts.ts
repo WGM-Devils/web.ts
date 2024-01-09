@@ -281,3 +281,41 @@ export const updatePost = async (
     return res.sendStatus(400);
   }
 };
+export const viewedPost = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { postId, userId } = req.params;
+
+    const post = await getById(postId);
+    if (!post) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "There is no post.", null, null))
+        .end();
+    }
+
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "There is no user.", null, null))
+        .end();
+    }
+    post.views.count++;
+    post.views.collection.push(userId);
+    await updateById(postId, post);
+
+    user.views.count++;
+    user.views.collection.push({ type: "post", id: postId, date: Date.now() });
+    await updateUserById(userId, user);
+    return res
+      .status(204)
+      .json(sendAPIResponse(204, "This user viewed this post.", null, null))
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
