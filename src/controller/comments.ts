@@ -206,6 +206,47 @@ export const updateComment = async (
       .end();
   }
 };
+export const getComment = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { commentId, type } = req.params;
+
+    const comment = await getCById(commentId);
+    if (!comment) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "Comment not found.", null, null))
+        .end();
+    }
+
+    if (type === "json") {
+      return res
+        .status(200)
+        .json(sendAPIResponse(200, "Comment fetched.", comment, "json"))
+        .end();
+    } else {
+      return res
+        .status(200)
+        .json(
+          sendAPIResponse(
+            200,
+            "Comment fetched.",
+            { comments: Object.values(comment) },
+            null
+          )
+        )
+        .end();
+    }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
 export const getAllComments = async (
   req: express.Request,
   res: express.Response
@@ -221,7 +262,9 @@ export const getAllComments = async (
 
     return res
       .status(200)
-      .json(sendAPIResponse(200, "Comments fetched.", comments, null))
+      .json(
+        sendAPIResponse(200, "Comments fetched.", { comments: comments }, "arr")
+      )
       .end();
   } catch (error) {
     console.log(error);
@@ -231,6 +274,7 @@ export const getAllComments = async (
       .end();
   }
 };
+
 export const likeComment = async (
   req: express.Request,
   res: express.Response
