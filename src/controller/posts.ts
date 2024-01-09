@@ -316,6 +316,83 @@ export const viewedPost = async (
       .end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.status(500).json(sendAPIResponse(500, "Our bad.", null, null));
+  }
+};
+export const likePost = async (req: express.Request, res: express.Response) => {
+  try {
+    const { postId, userId } = req.params;
+
+    const post = await getById(postId);
+    if (!post) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "There is no post.", null, null))
+        .end();
+    }
+
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "There is no user.", null, null))
+        .end();
+    }
+
+    post.likes.count++;
+    post.likes.collection.push(userId);
+    await updateById(postId, post);
+
+    user.likes.count++;
+    user.likes.collection.push({ type: "post", id: postId, date: Date.now() });
+    await updateUserById(userId, user);
+    return res
+      .status(204)
+      .json(sendAPIResponse(204, "This user liked this post.", null, null))
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(sendAPIResponse(500, "Our bad.", null, null));
+  }
+};
+export const unlikePost = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { postId, userId } = req.params;
+
+    const post = await getById(postId);
+    if (!post) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "There is no post.", null, null))
+        .end();
+    }
+
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "There is no user.", null, null))
+        .end();
+    }
+
+    post.likes.count--;
+    post.likes.collection = post.likes.collection.filter((id) => id !== userId);
+    await updateById(postId, post);
+
+    user.likes.count--;
+    user.likes.collection = user.likes.collection.filter(
+      (like) => like.id !== postId
+    );
+    await updateUserById(userId, user);
+    return res
+      .status(204)
+      .json(sendAPIResponse(204, "This user unliked this post.", null, null))
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(sendAPIResponse(500, "Our bad.", null, null));
   }
 };
