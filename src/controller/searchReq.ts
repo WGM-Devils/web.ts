@@ -13,7 +13,7 @@ import {
   deleteById,
 } from "../db/searchReq";
 import { sendAPIResponse } from "helpers/respond";
-import validateAccess from "helpers/validateAccess";
+import validateAccess from "../helpers/validateAccess";
 
 // Exports
 

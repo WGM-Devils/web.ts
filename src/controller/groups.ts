@@ -14,7 +14,7 @@ import {
 } from "../db/groups";
 import { sendAPIResponse } from "../helpers/respond";
 import { getUserById, updateUserById } from "../db/users";
-import validateAccess from "helpers/validateAccess";
+import validateAccess from "../helpers/validateAccess";
 
 // Exports
 

@@ -6,7 +6,7 @@ import express from "express";
 
 import { deleteUserById, getUserById, getUsers } from "../db/users";
 import { sendAPIResponse } from "../helpers/respond";
-import validateAccess from "helpers/validateAccess";
+import validateAccess from "../helpers/validateAccess";
 
 // Exports
 

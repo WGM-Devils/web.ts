@@ -16,7 +16,7 @@ import {
 } from "../db/comments";
 import { getUserById, updateUserById } from "../db/users";
 import { sendAPIResponse } from "../helpers/respond";
-import validateAccess from "helpers/validateAccess";
+import validateAccess from "../helpers/validateAccess";
 
 // Code
 
