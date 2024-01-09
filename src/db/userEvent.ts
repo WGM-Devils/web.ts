@@ -31,6 +31,10 @@ export const UserEventModel = mongoose.model(
 
 export const getAll = () => UserEventModel.find();
 export const getById = (id: string) => UserEventModel.findById(id);
+export const create = (values: Record<string, any>) =>
+  UserEventModel.create(values);
+export const getAllByCreator = (creator: string) =>
+  UserEventModel.find({ creator });
 export const updateById = (id: string, values: Record<string, any>) =>
   UserEventModel.findByIdAndUpdate(id, values);
 export const deleteById = (id: string) => UserEventModel.findByIdAndDelete(id);
