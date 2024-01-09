@@ -23,11 +23,11 @@ export const CommentModel = mongoose.model(
   "Comments"
 );
 export const getAll = () => CommentModel.find();
-export const getById = (id: string) => CommentModel.findById(id);
+export const getCById = (id: string) => CommentModel.findById(id);
 export const create = (values: Record<string, any>) =>
   CommentModel.create(values);
 export const getAllByCreator = (creator: string) =>
   CommentModel.find({ creator });
-export const updateById = (id: string, values: Record<string, any>) =>
+export const updateCById = (id: string, values: Record<string, any>) =>
   CommentModel.findByIdAndUpdate(id, values);
 export const deleteById = (id: string) => CommentModel.findByIdAndDelete(id);
