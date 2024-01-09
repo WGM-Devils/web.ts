@@ -12,7 +12,7 @@ import {
   create,
   deleteById,
 } from "../db/searchReq";
-import { sendAPIResponse } from "helpers/respond";
+import { sendAPIResponse } from "../helpers/respond";
 import validateAccess from "../helpers/validateAccess";
 
 // Exports

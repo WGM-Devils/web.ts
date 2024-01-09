@@ -5,7 +5,7 @@ import express from "express";
 // Project-Imports
 
 import { deleteById, updateById, getById, getAll, create } from "../db/posts";
-import { getUserById, updateUserById } from "db/users";
+import { getUserById, updateUserById } from "../db/users";
 import { sendAPIResponse } from "../helpers/respond";
 import validateAccess from "../helpers/validateAccess";
 
