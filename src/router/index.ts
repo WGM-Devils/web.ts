@@ -10,6 +10,7 @@ import groups from "./groups";
 import posts from "./posts";
 import userEvents from "./userEvents";
 import comments from "./comments";
+import searchReq from "./searchReq";
 
 // Constants
 
@@ -24,5 +25,6 @@ export default (): express.Router => {
   groups(router);
   userEvents(router);
   comments(router);
+  searchReq(router);
   return router;
 };
