@@ -154,6 +154,83 @@ export const deleteComment = async (
       .end();
   }
 };
+export const updateComment = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
+    const { commentId, userId } = req.params;
+
+    const comment = await getCById(commentId);
+    if (!comment) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "Comment not found.", null, null))
+        .end();
+    }
+
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "User not found.", null, null))
+        .end();
+    }
+    if (comment.creator !== userId) {
+      return res
+        .status(403)
+        .json(sendAPIResponse(403, "Not allowed.", null, null))
+        .end();
+    }
+
+    const { content } = req.body;
+    comment.content = content;
+    await updateCById(commentId, comment);
+
+    return res
+      .status(204)
+      .json(sendAPIResponse(204, "Comment updated.", null, null))
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
+export const getAllComments = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const comments = await getAll();
+    if (!comments) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "Comments not found.", null, null))
+        .end();
+    }
+
+    return res
+      .status(200)
+      .json(sendAPIResponse(200, "Comments fetched.", comments, null))
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
 export const likeComment = async (
   req: express.Request,
   res: express.Response
@@ -242,7 +319,7 @@ export const unlikeComment = async (
 
     user.likes.count--;
     user.likes.collection = user.likes.collection.filter(
-      (c) => c !== commentId
+      (c) => c.id !== commentId && c.type === "comment"
     );
     await updateUserById(userId, user);
 
