@@ -9,6 +9,7 @@ import users from "./users";
 import groups from "./groups";
 import posts from "./posts";
 import userEvents from "./userEvents";
+import comments from "./comments";
 
 // Constants
 
@@ -22,5 +23,6 @@ export default (): express.Router => {
   posts(router);
   groups(router);
   userEvents(router);
+  comments(router);
   return router;
 };
