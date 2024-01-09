@@ -24,6 +24,7 @@ export const CommentModel = mongoose.model(
 );
 export const getAll = () => CommentModel.find();
 export const getCById = (id: string) => CommentModel.findById(id);
+export const getAllByPostId = (postId: string) => CommentModel.find({ postId });
 export const create = (values: Record<string, any>) =>
   CommentModel.create(values);
 export const getAllByCreator = (creator: string) =>
