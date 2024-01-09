@@ -154,3 +154,107 @@ export const deleteComment = async (
       .end();
   }
 };
+export const likeComment = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
+    const { commentId, userId } = req.params;
+
+    const comment = await getCById(commentId);
+    if (!comment) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "Comment not found.", null, null))
+        .end();
+    }
+
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "User not found.", null, null))
+        .end();
+    }
+
+    comment.likes.count++;
+    comment.likes.collection.push(userId);
+    await updateCById(commentId, comment);
+
+    user.likes.count++;
+    user.likes.collection.push(commentId);
+    await updateUserById(userId, user);
+
+    return res
+      .status(204)
+      .json(sendAPIResponse(204, "Comment liked.", null, null))
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
+export const unlikeComment = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    if (!validateAccess(req)) {
+      return res
+        .status(401)
+        .json(sendAPIResponse(401, "Unauthorized.", null, null))
+        .end();
+    }
+
+    const { commentId, userId } = req.params;
+
+    const comment = await getCById(commentId);
+    if (!comment) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "Comment not found.", null, null))
+        .end();
+    }
+
+    const user = await getUserById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json(sendAPIResponse(404, "User not found.", null, null))
+        .end();
+    }
+
+    comment.likes.count--;
+    comment.likes.collection = comment.likes.collection.filter(
+      (c) => c !== userId
+    );
+    await updateCById(commentId, comment);
+
+    user.likes.count--;
+    user.likes.collection = user.likes.collection.filter(
+      (c) => c !== commentId
+    );
+    await updateUserById(userId, user);
+
+    return res
+      .status(204)
+      .json(sendAPIResponse(204, "Comment unliked.", null, null))
+      .end();
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(sendAPIResponse(500, "Our fault.", null, null))
+      .end();
+  }
+};
