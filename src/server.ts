@@ -43,3 +43,4 @@ server.listen(2000, () => {
 });
 
 app.use("/", router());
+app.get("/", (req, res) => res.send("Hello World!"));
