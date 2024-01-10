@@ -42,4 +42,4 @@ server.listen(2000, () => {
   );
 });
 
-app.use("/api", router());
+app.use("/", router());
