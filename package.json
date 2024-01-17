@@ -4,7 +4,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "npm install && ts-node src/server.ts",
-    "build": "npm install && tsc"
+    "build": "npm install"
   },
   "author": "",
   "license": "ISC",
