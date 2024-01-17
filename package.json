@@ -23,7 +23,7 @@
     "mongoose": "^8.0.3",
     "nodemon": "^3.0.2",
     "random-string": "^0.2.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
     "typescript": "^5.2.2",
     "yarn": "^1.22.19"
