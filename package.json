@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm install && ts-node src/server.ts",
     "run": "node dist/server.js",
-    "build": "npm install tsc express body-parser compression cookie-parser cors ejs ts-node typescript mongoose && npm i -D @types/express @types/body-parser @types/compression @types/cookie-parser @types/cors @types/dotenv @types/lodash @types/mongoose && tsc"
+    "build": "npm install --save tsc express body-parser compression cookie-parser cors ejs ts-node typescript mongoose && npm install --save-dev @types/express @types/body-parser @types/compression @types/cookie-parser @types/cors @types/dotenv @types/lodash @types/mongoose && tsc"
   },
   "author": "",
   "license": "ISC",
